@@ -1,0 +1,326 @@
+<!-- feito por: Acácio de Oliveira -->
+<!-- https://github.com/AcacioMK -->
+<!DOCTYPE html>
+<html lang='pt-br'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Conjuntos</title>
+        <style>
+            *{
+                font-family: arial;
+            }
+            body{
+                margin: 0;                
+            }
+            #interface{
+                position: relative;                
+                width: 1200px;
+                margin: 0 auto 0 auto;                             
+            }
+            #corpo{
+                position: relative;                
+                width: 1100px;
+                margin: 0 auto 0 auto;
+            }
+            .bl{
+                position: relative;
+                border-radius: 150px;
+                border: 1px solid black;
+                width: 200px;
+                height: 200px;
+                
+            }
+            .cont_bl{
+                position: relative;
+                width: 150px;
+                left: 25px;
+                top: 50px;
+                font-size: 30px;
+            }
+            #le{
+                position: relative;
+                width: 350px;
+                float: left;
+            }
+            #ld{
+                position: relative;
+                width: 750px;
+                float: left;
+            }
+            #ld1, #ld2, #ld3{
+                position: relative;
+                width: 250px;
+                float: left;
+            }
+            #ld2a{
+                position: relative;
+                top: 150px;
+            }
+            #le h1{
+                font-size: 20px;
+            }
+            #le ul{
+                margin: 0;
+            }
+            #le ul li{
+                list-style: none;
+                line-height: 30px;
+            }
+            #ld h1{
+                margin: 0;
+                position: relative;
+                top: 20px;
+            }
+            .bti{
+                color: white;
+                background-color: rgb(0, 0, 255);
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+        <script>
+            var ar1 = [];
+            var ar2 = [];
+            var ar3 = [];
+            var ar4 = [];
+            var ar5 = [];
+            
+            function valores(c){                
+                switch(c){
+                    case 'a':
+                        var campo = document.getElementById("a1").value;                        
+                        ar1 = verificaRepetido(campo);
+                        document.getElementById("bl1A").innerHTML = ar1.join(' ');
+                        campo2 = document.getElementById("a1").value = ar1.join(' ');
+                        break;
+                    case 'b':
+                        campo = document.getElementById("b1").value;
+                        ar2 = verificaRepetido(campo);
+                        document.getElementById("bl1B").innerHTML = ar2.join(' ');
+                        campo2 = document.getElementById("b1").value = ar2.join(' ');
+                        break;
+                    case 'c':
+                        campo = document.getElementById("c1").value;
+                        ar3 = verificaRepetido(campo);
+                        document.getElementById("bl2A").innerHTML = ar3.join(' ');
+                        campo2 = document.getElementById("c1").value = ar3.join(' ');
+                        break;
+                    case 'd':
+                        campo = document.getElementById("d1").value;
+                        ar4 = verificaRepetido(campo);
+                        document.getElementById("bl3A").innerHTML = ar4.join(' ');
+                        campo2 = document.getElementById("d1").value = ar4.join(' ');
+                        break;
+                    
+                    case 'e':
+                        campo = document.getElementById("e1").value;
+                        ar5 = verificaRepetido(campo);
+                        document.getElementById("bl3B").innerHTML = ar5.join(' ');
+                        campo2 = document.getElementById("e1").value = ar5.join(' ');
+                        break;
+                }
+            }
+            
+            function verificaRepetido(campo){
+                var dados = campo.split(' ');
+                function onlyUnique(value, index, self) {
+                    return self.indexOf(value) === index;
+                }
+                var unique = dados.filter(onlyUnique);
+                return unique;   
+            }
+            
+            function operacao(){
+                var rsOperacao = document.getElementById('opr1');
+                var selecao1 = document.getElementById('cj1');
+                var sl1 = selecao1.options[selecao1.selectedIndex].value;
+                var arU1 = retornaArray(sl1);
+                
+                var selecao2 = document.getElementById('cj2');
+                var sl2 = selecao2.options[selecao2.selectedIndex].value;
+                var arU2 = retornaArray(sl2);
+                
+                var selecao3 = document.getElementById('cj3');
+                var sl3 = selecao3.options[selecao3.selectedIndex].value;
+                var arU3 = retornaArray(sl3);
+                
+                var selecao4 = document.getElementById('op1');
+                var sl4 = selecao4.options[selecao4.selectedIndex].value;
+                   
+                var selecao5 = document.getElementById('op2');
+                var sl5 = selecao5.options[selecao5.selectedIndex].value;  
+                
+                
+                if(sl4 == "U"){                    
+                    var rs1 = uniao(arU1, arU2);                    
+                    
+                }else{
+                    var rs1 = interseccao(arU1, arU2);
+                }
+                
+                if(sl5 == ""){
+                    rsOperacao.innerHTML = sl1 + " " + sl4 + " " + sl2 + " = " + rs1;
+                }else if(sl5 == "U"){
+                    
+                    var rs2 = uniao(rs1, arU3);
+                    
+                    rsOperacao.innerHTML = "( " + sl1 + " " + sl4 + " " + sl2 + " ) " + sl5 + " " + sl3 + " = " + rs2;
+                }else{
+                    rs2 = interseccao(rs1, arU3);
+                    
+                    rsOperacao.innerHTML = "( " + sl1 + " " + sl4 + " " + sl2 + " ) " + sl5 + " " + sl3 + " = " + rs2;
+                }
+                
+            }
+            
+            function retornaArray(ar){
+                var arR = [];
+                switch(ar){
+                    case 'A':
+                        arR =  ar1;
+                        break;
+                    case 'B':
+                        arR = ar2;
+                        break;
+                    case 'C':
+                        arR = ar3;
+                        break;
+                    case 'D':
+                        arR = ar4;
+                        break;                    
+                    case 'E':
+                        arR = ar5;
+                        break;
+                }
+                return arR;
+            }
+            
+            function uniao(ar1, ar2){
+                var ar1a = ar1.concat(ar2);
+                
+                function uniaof(value, index, self) {
+                    return self.indexOf(value) === index;
+                }
+                
+                var uniao = ar1a.filter(uniaof);
+                return uniao; 
+                
+            }
+            
+            function interseccao(ar1, ar2){
+                var ar1a = ar1.concat(ar2);                
+                function intersf(value, index, self) {
+                    return self.indexOf(value) !== index;
+                }
+                
+                var inters = ar1a.filter(intersf);
+                return inters; 
+                
+            }
+            
+            
+        </script>
+    </head>
+    <body>
+        <div id='interface'>            
+            <div id='corpo'>
+                <div id='le'>
+                    <h1>Conjuntos</h1>
+                    <ul>
+                        <li>A: <input type='text' name='a' id='a1'> <button class='bti' onclick="valores('a');">Inserir</button></li>
+                        <li>B: <input type='text' name='b' id='b1'> <button class='bti' onclick="valores('b');">Inserir</button></li>
+                        <li>C: <input type='text' name='c' id='c1'> <button class='bti' onclick="valores('c');">Inserir</button></li>
+                        <li>D: <input type='text' name='d' id='d1'> <button class='bti' onclick="valores('d');">Inserir</button></li>
+                        <li>E: <input type='text' name='e' id='e1'> <button class='bti' onclick="valores('e');">Inserir</button></li>
+                    </ul>
+                </div>
+                <div id='ld'>
+                    <div id='ld1'>
+                        <div id='ld1a'>
+                            <h1>A</h1>
+                            <div class='bl' id='bl_ld1a'>
+                                <div class='cont_bl' id='bl1A'>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div id='ld1b'>
+                            <h1>B</h1>
+                            <div class='bl' id='bl_ld1b'>
+                                <div class='cont_bl' id='bl1B'>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='ld2'>
+                        <div id='ld2a'>
+                            <h1>C</h1>
+                            <div class='bl' id='bl_ld2a'>
+                                <div class='cont_bl' id='bl2A'>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='ld3'>
+                        <div id='ld3a'>
+                            <h1>D</h1>
+                            <div class='bl' id='bl_ld3a'>
+                                <div class='cont_bl' id='bl3A'>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div id='ld3b'>
+                            <h1>E</h1>
+                            <div class='bl' id='bl_ld3b'>
+                                <div class='cont_bl' id='bl3B'>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style='clear: both'></div>
+                <div id='operacoes'>
+                    <p>
+                    <select name='cj1' id='cj1'>
+                        <option value='A'>Conjunto A</option>
+                        <option value='B'>Conjunto B</option>
+                        <option value='C'>Conjunto C</option>
+                        <option value='D'>Conjunto D</option>
+                        <option value='E'>Conjunto E</option>
+                    </select>
+                    <select id='op1'>
+                        <option value='U'>União</option>
+                        <option value='∩'>Intersecção</option>
+                    </select>
+                    <select id='cj2'>
+                        <option value='A'>Conjunto A</option>
+                        <option value='B'>Conjunto B</option>
+                        <option value='C'>Conjunto C</option>
+                        <option value='D'>Conjunto D</option>
+                        <option value='E'>Conjunto E</option>
+                    </select>
+                    <select id='op2'>
+                        <option value=''>Nenhum</option>
+                        <option value='U'>União</option>
+                        <option value='∩'>Intersecção</option>
+                    </select>
+                    <select id='cj3'>
+                        <option value='A'>Conjunto A</option>
+                        <option value='B'>Conjunto B</option>
+                        <option value='C'>Conjunto C</option>
+                        <option value='D'>Conjunto D</option>
+                        <option value='E'>Conjunto E</option>
+                    </select>
+                    <button class='bti' onclick="operacao();">Atualizar</button>
+                    </p>
+                    <p>Operação: <span id='opr1'></span></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
